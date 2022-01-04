@@ -1,4 +1,5 @@
-const Router = require('express-promise-router')
+const Router = require('express-promise-router');
+const client = require('../db');
 const db = require('../db')
 
 const router = new Router()
@@ -10,6 +11,7 @@ router.get('/', async(req, res)=>{
     try {
         const {rows} = await db.query('SELECT * FROM users')
         res.send(rows);
+        client.release()
     } catch (err) {
         errorHandler(err)
     }

@@ -15,12 +15,21 @@ addUserBtn.addEventListener('click', addUser);
 // Return all users in database
 async function getAllUsers(){
     // Local
+    // try {
+    //     const res = await fetch('http://localhost:3000/users');
+    //     const data = await res.json()
+    //     populateUsers(data)
+    // } catch (err) {
+    //     console.error(err)
+    // }
+
+    // Deployed
     try {
-        const res = await fetch('http://localhost:3000/users');
+        const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
         const data = await res.json()
         populateUsers(data)
-    } catch (err) {
-        console.error(err)
+    } catch (error) {
+        console.error(error)
     }
 }
 
