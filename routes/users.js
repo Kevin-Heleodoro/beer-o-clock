@@ -46,9 +46,6 @@ router.post('/', async(req, res)=> {
 router.put('/' , async(req, res)=> {
     try {
         const {fav_breweries, id} = req.body
-        
-        console.log(fav_breweries)
-
         const {rows} = await db.query('UPDATE users SET fav_breweries = array_append(fav_breweries, $1) WHERE id = $2', [fav_breweries, id])
         res.send({
             message: "User updated!"
@@ -62,7 +59,11 @@ router.put('/' , async(req, res)=> {
 // DELETE a user
 router.delete('/' , async(req, res) => {
     try {
-        
+        const {id} = req.body
+        const {rows} = await db.query('DELETE FROM users WHERE id = $1', [id])
+        res.send({
+            message: "User deleted."
+        })
     } catch (err) {
         errorHandler(err, res)
     }

@@ -41,10 +41,10 @@ async function getOneUser(){
 
     try {
         // Local
-        const res = await fetch(`http://localhost:3000/users/${userId}`)
+        // const res = await fetch(`http://localhost:3000/users/${userId}`)
 
         // Deployed
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
         const data = await res.json()
         populateUsers(data)
     } catch (err) {
@@ -71,8 +71,8 @@ async function addUser(){
     };
 
     try {
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
-        const res = await fetch(`http://localhost:3000/users/` , {
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+        // const res = await fetch(`http://localhost:3000/users/` , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -101,11 +101,14 @@ async function updateBrews() {
 
     try {
         // console.log(JSON.stringify(brewArr))
-        const res = await fetch(`http://localhost:3000/users/${id}`)
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${id}`);
+
+        // const res = await fetch(`http://localhost:3000/users/${id}`)
         const data = await res.json()
         
         if(data) {
-            const res = await fetch(`http://localhost:3000/users/`, {
+            const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+            // const res = await fetch(`http://localhost:3000/users/`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json'
