@@ -13,14 +13,15 @@
         <div class="header-container section">
             <div class="logo">It's Beer O'Clock!</div>
             <ul class="nav">
-                <!-- <li><a href="#">Home</a></li> -->
+                <li id="home-btn"><a href="#">Home</a></li>
                 <li id="add-user"><a href="#">Add User</a></li>
-                <li id="search-breweries"><a href="#">Brewery Search</a></li>
+                <li id="search-breweries"><a href="#">Brew Search</a></li>
 
             </ul>
         </div>
     
         <div class="search-container section">
+
             <div class="search-bar">
                 <div class="id-search">
                     <input type="number" id="userId" min='1'>
@@ -28,12 +29,28 @@
                 </div>
                 <button id="search-users-button">All Users</button>
             </div>
-            <div class="search-results">
-                <div class="search-results-header"></div>
-                <div class="search-results-display">
-                    
-                </div>
+
+            <div class="search-results-display"></div>
+
+            <div class="form-container">
+                <form id="new-user" action="/users" method="post">
+
+                    <label for="user-name">Username</label>
+                    <input type="text" id="user-name" placeholder="No spaces" name="name">
+
+                    <label for="user-city">City</label>
+                    <input type="text" id="user-city" placeholder="City" name="city">
+
+                    <label for="user-state">State</label>
+                    <input type="text" id="user-state" placeholder="Two letter acronym" name="state">
+
+                    <label for="fav-brewery">Favorite Brewery</label>
+                    <input type="text" id="fav-brewery" placeholder="Separate with commas if more than one" name="fav_breweries">
+
+                    <button id="submit-user-btn" type="submit">Submit</button>
+                </form>
             </div>
+
         </div>
     
         <div class="photo-container section">

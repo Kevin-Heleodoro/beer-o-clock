@@ -11,6 +11,11 @@ body {
     font-family: 'Indie Flower', cursive;
 }
 
+button,
+input {
+    font-family: 'Indie Flower', cursive;
+}
+
 a:link,
 a:visited {
     /* color: aliceblue; */
@@ -21,9 +26,24 @@ a:hover {
     text-decoration: underline;
 }
 
+.form-container {
+    display: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+form > input {
+    padding: 5px;
+    margin: 5px;
+}
+
 .nav > li{
     display: inline;
-    margin-right: 5px;
+    margin-right: 2px;
 }
 
 .page {
@@ -59,6 +79,11 @@ a:hover {
 .search-bar {
     display: flex;
     flex-direction: column;
+}
+
+.search-results-display {
+    display: flex;
+    flex-direction: column ;
 }
 
 .photo-item {
@@ -100,6 +125,11 @@ a:hover {
 
 /* Tablet */
 @media only screen and (min-width: 401px) and (max-width: 960px) {
+    .header-container {
+        font-size: 125%;
+        /* padding-right: 70px; */
+        /* padding-left: 70px; */
+    }
     .photo-container,
     .last-viewed-container {
         display: flex;
@@ -123,6 +153,10 @@ a:hover {
         margin: 0 auto;
     }
 
+    .logo {
+        font-size: 200%;
+    }
+
     .header-container {
         padding-left: 100px;
         padding-right: 100px;
@@ -130,6 +164,7 @@ a:hover {
 
     .nav > li {
         margin-right: 25px;
+        font-size: 150%;
     }
     
     .nav > li:last-of-type {

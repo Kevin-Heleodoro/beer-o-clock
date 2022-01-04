@@ -2,24 +2,32 @@
 const searchUserBtn = document.querySelector('#search-users-button');
 const searchIdBtn = document.querySelector('#search-user-id-button');
 const addUserBtn = document.querySelector('#add-user');
+const homeBtn = document.querySelector('#home-btn');
+const submitUserBtn = document.querySelector('#submit-user-btn');
 
 // Sections
 const resultsDisplay = document.querySelector('.search-results-display')
+const searchBar = document.querySelector('.search-bar')
+const form = document.querySelector('.form-container')
+
+
 
 
 // Event Listeners
 searchUserBtn.addEventListener('click', getAllUsers);
 searchIdBtn.addEventListener('click', getOneUser);
-addUserBtn.addEventListener('click', addUser);
+addUserBtn.addEventListener('click', createUserForm);
+homeBtn.addEventListener('click', resetPage);
+// submitUserBtn.addEventListener('click', addUser);
 
 // Return all users in database
 async function getAllUsers(){
         try {
         // Local
-        // const res = await fetch('http://localhost:3000/users'); 
+        const res = await fetch('http://localhost:3000/users'); 
 
         // Deployed
-        const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
+        // const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
         const data = await res.json()
         populateUsers(data)
     } catch (error) {
@@ -33,10 +41,10 @@ async function getOneUser(){
 
     try {
         // Local
-        // const res = await fetch(`http://localhost:3000/users/${userId}`)
+        const res = await fetch(`http://localhost:3000/users/${userId}`)
 
         // Deployed
-        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
+        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
         const data = await res.json()
         populateUsers(data)
     } catch (err) {
@@ -48,13 +56,14 @@ async function getOneUser(){
 }
 
 // Add a user to the db
-async function addUser(){
-    try {
+// async function addUser(){
+
+//     try {
+//         // console.log(form)
+//     } catch (err) {
         
-    } catch (err) {
-        
-    }
-}
+//     }
+// }
 
 // Populates the search results area with user information
 function populateUsers(data) {
@@ -90,4 +99,21 @@ function populateUsers(data) {
             resultsDisplay.appendChild(li)
         })
     }
+}
+
+function createUserForm() {
+    if (form.style.display === "flex") {
+        console.log('Form is already up')
+    } else {
+        form.style.display = "flex"
+        resultsDisplay.style.display = "none"
+        searchBar.style.display = "none"
+    }
+}
+
+function resetPage(){
+    searchBar.style.display = "flex"
+    resultsDisplay.style.display = "flex"
+    form.style.display = "none"
+    resultsDisplay.replaceChildren()
 }

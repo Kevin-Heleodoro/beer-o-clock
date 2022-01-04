@@ -28,6 +28,18 @@ router.get('/:id', async(req, res) => {
     }
 })
 
+// POST a new user
+router.post('/', async (req, res) => {
+    try {
+        const {name, city, state, fav_breweries} = req.body;
+        console.log(req);
+        // const {rows} = await db.query('INSERT INTO users (name, fav_breweries, city, state) VALUES ($1, $2, $3, $4) RETURNING *', [name, fav_breweries, city, state]);
+        // res.send(rows[0])
+    } catch (err) {
+        errorHandler(err, res)
+    }
+})
+
 // Quick error handling function
 function errorHandler(err, res){
     console.error(err);
