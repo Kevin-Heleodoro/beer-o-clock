@@ -13,14 +13,28 @@
         <div class="header-container section">
             <div class="logo">It's Beer O'Clock!</div>
             <ul class="nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Add User</a></li>
-                <li><a href="#">About</a></li>
+                <!-- <li><a href="#">Home</a></li> -->
+                <li id="add-user"><a href="#">Add User</a></li>
+                <!-- <li><a href="#">About</a></li> -->
 
             </ul>
         </div>
     
-        <div class="search-container section">Search Box</div>
+        <div class="search-container section">
+            <div class="search-bar">
+                <div class="id-search">
+                    <input type="number" id="userId" min='1'>
+                    <button id='search-user-id-button'>Search By ID</button>
+                </div>
+                <button id="search-users-button">All Users</button>
+            </div>
+            <div class="search-results">
+                <div class="search-results-header"></div>
+                <div class="search-results-placeholder">
+                    
+                </div>
+            </div>
+        </div>
     
         <div class="photo-container section">
             <div class="photo-item">
