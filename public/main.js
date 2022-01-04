@@ -1,28 +1,53 @@
+// Buttons
 const searchUserBtn = document.querySelector('#search-users-button');
-const searchIdBtn = document.querySelector('#search-user-id-button')
+const searchIdBtn = document.querySelector('#search-user-id-button');
+const addUserBtn = document.querySelector('#add-user');
 
-const resultsDisplay = document.querySelector('.search-results-placeholder')
+// Sections
+const resultsDisplay = document.querySelector('.search-results-display')
 
 
+// Event Listeners
 searchUserBtn.addEventListener('click', getAllUsers);
 searchIdBtn.addEventListener('click', getOneUser);
+addUserBtn.addEventListener('click', addUser);
 
 // Return all users in database
-function getAllUsers(){
+async function getAllUsers(){
     // Local
-    fetch('http://localhost:3000/users')
-    .then(res => res.json())
-    .then((data) => populateUsers(data))
+    try {
+        const res = await fetch('http://localhost:3000/users');
+        const data = await res.json()
+        populateUsers(data)
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 // Return a specific user from db
-function getOneUser(){
+async function getOneUser(){
     const userId = document.querySelector('#userId').value
-    // console.log(userId)
+
     // Local
-    fetch(`http://localhost:3000/users/${userId}`)
-    .then(res => res.json())
-    .then((data) => populateUsers(data))
+    try {
+        const res = await fetch(`http://localhost:3000/users/${userId}`)
+        const data = await res.json()
+        populateUsers(data)
+    } catch (err) {
+        let p = document.createElement('p');
+        p.innerText = `ID #${userId} does not exist.`
+        resultsDisplay.replaceChildren(p)
+        console.error(err)
+    }
+}
+
+// Add a user to the db
+async function addUser(){
+    try {
+        
+    } catch (err) {
+        
+    }
 }
 
 // Populates the search results area with user information
