@@ -4,14 +4,13 @@ const searchIdBtn = document.querySelector('#search-user-id-button');
 const addUserBtn = document.querySelector('#add-user');
 const homeBtn = document.querySelector('#home-btn');
 const submitUserBtn = document.querySelector('#submit-user-btn');
+const updateBrewBtn = document.querySelector('#update-brews-btn');
 
 // Sections
 const resultsDisplay = document.querySelector('.search-results-display')
 const searchBar = document.querySelector('.search-bar')
 const form = document.querySelector('.form-container')
-
-
-
+const updateBox = document.querySelector('.update-container')
 
 // Event Listeners
 searchUserBtn.addEventListener('click', getAllUsers);
@@ -19,6 +18,7 @@ searchIdBtn.addEventListener('click', getOneUser);
 addUserBtn.addEventListener('click', createUserForm);
 homeBtn.addEventListener('click', resetPage);
 submitUserBtn.addEventListener('click', addUser);
+updateBrewBtn.addEventListener('click', updateBrews);
 
 // Return all users in database
 async function getAllUsers(){
@@ -71,6 +71,7 @@ async function addUser(){
     };
 
     try {
+        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
         const res = await fetch(`http://localhost:3000/users/` , {
             method: 'POST',
             headers: {
@@ -83,6 +84,43 @@ async function addUser(){
         console.log(data)
     } catch (err) {
         alert(`That didn't work`)
+    }
+}
+
+// Updates breweries by user id
+async function updateBrews() {
+    const id = document.querySelector('#user-id-update').value;
+    const breweries = document.querySelector('#new-brew').value;
+    const brewArr = breweries.split(',')
+    const updateObj = {
+    fav_breweries: brewArr,
+        id: id
+    }
+    // console.log(JSON.stringify(updateObj))
+    // console.log(JSON.stringify(brewArr))
+
+    try {
+        // console.log(JSON.stringify(brewArr))
+        const res = await fetch(`http://localhost:3000/users/${id}`)
+        const data = await res.json()
+        
+        if(data) {
+            const res = await fetch(`http://localhost:3000/users/`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updateObj)
+            })
+            const data = await res.json()
+        } 
+    } catch (err) {
+        let p = document.createElement('p');
+        let br = document.createElement('br');
+        p.innerText = `ID #${id} does not exist.`
+        updateBox.prepend(p)
+        updateBox.prepend(br)
+        console.error(err)
     }
 }
 

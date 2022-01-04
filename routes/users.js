@@ -1,7 +1,5 @@
 const Router = require('express-promise-router');
 const { body, validationResult } = require('express-validator');
-const { userInfo } = require('os');
-const client = require('../db');
 const db = require('../db')
 
 const router = new Router()
@@ -47,11 +45,29 @@ router.post('/', async(req, res)=> {
 // UPDATE a user
 router.put('/' , async(req, res)=> {
     try {
+        const {fav_breweries, id} = req.body
         
+        console.log(fav_breweries)
+
+        const {rows} = await db.query('UPDATE users SET fav_breweries = array_append(fav_breweries, $1) WHERE id = $2', [fav_breweries, id])
+        res.send({
+            message: "User updated!"
+        })
+        console.log(rows)
     } catch (err) {
-        
+        errorHandler(err, res)
     }
 })
+
+// DELETE a user
+router.delete('/' , async(req, res) => {
+    try {
+        
+    } catch (err) {
+        errorHandler(err, res)
+    }
+})
+
 
 // Quick error handling function
 function errorHandler(err, res){

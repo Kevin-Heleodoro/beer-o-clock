@@ -104,6 +104,31 @@ form > input {
 
 .last-viewed-container {
     background-color: #dfddcb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-container {
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    align-items: center;
+}
+
+#user-id-update {
+    width: 100%;
+}
+
+#new-brew {
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px;
+}
+
+#update-brews-btn {
+    width: 100%;
+    font-size: 150%;
 }
 
 .footer-container {
@@ -171,6 +196,10 @@ form > input {
         margin-right: 0;
     }
 
+    .search-bar {
+        size: 200%;
+    }
+
     .photo-container,
     .last-viewed-container {
         width: 50%;
@@ -185,6 +214,27 @@ form > input {
     }
     
     .photo-item img {
+        width: 100%;
+    }
+
+    .update-container {
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+        justify-content: center;
+        align-items: center;
+    }
+
+    #user-id-update {
+        width: 100%;
+        padding-left: 50% ;
+    }
+
+    #new-brew {
+        width: 100%;
+        height: 50%;
+    }
+    
+    #update-brews-btn {
         width: 100%;
     }
 }
