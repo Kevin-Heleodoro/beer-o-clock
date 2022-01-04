@@ -18,7 +18,7 @@ searchUserBtn.addEventListener('click', getAllUsers);
 searchIdBtn.addEventListener('click', getOneUser);
 addUserBtn.addEventListener('click', createUserForm);
 homeBtn.addEventListener('click', resetPage);
-// submitUserBtn.addEventListener('click', addUser);
+submitUserBtn.addEventListener('click', addUser);
 
 // Return all users in database
 async function getAllUsers(){
@@ -56,14 +56,35 @@ async function getOneUser(){
 }
 
 // Add a user to the db
-// async function addUser(){
+async function addUser(){
+    let city = document.querySelector('#user-city').value
+    let name = document.querySelector('#user-name').value
+    let state = document.querySelector('#user-state').value
+    let fav_breweries = document.querySelector('#fav-brewery').value
+    let brewArr = fav_breweries.split(',')
 
-//     try {
-//         // console.log(form)
-//     } catch (err) {
-        
-//     }
-// }
+    const newUser = {
+        name: name,
+        fav_breweries: brewArr,
+        city: city,
+        state: state
+    };
+
+    try {
+        const res = await fetch(`http://localhost:3000/users/` , {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+        // console.log(newUser)
+        const data = await res.json();
+        console.log(data)
+    } catch (err) {
+        alert(`That didn't work`)
+    }
+}
 
 // Populates the search results area with user information
 function populateUsers(data) {

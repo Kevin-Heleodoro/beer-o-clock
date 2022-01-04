@@ -1,4 +1,6 @@
 const Router = require('express-promise-router');
+const { body, validationResult } = require('express-validator');
+const { userInfo } = require('os');
 const client = require('../db');
 const db = require('../db')
 
@@ -29,14 +31,25 @@ router.get('/:id', async(req, res) => {
 })
 
 // POST a new user
-router.post('/', async (req, res) => {
+router.post('/', async(req, res)=> {
     try {
         const {name, city, state, fav_breweries} = req.body;
-        console.log(req);
-        // const {rows} = await db.query('INSERT INTO users (name, fav_breweries, city, state) VALUES ($1, $2, $3, $4) RETURNING *', [name, fav_breweries, city, state]);
-        // res.send(rows[0])
+        const {rows} = await db.query(`INSERT INTO users (name, fav_breweries, city, state) VALUES ($1, $2, $3, $4)`, [name, fav_breweries, city, state])
+        res.send({
+            message: "New user added."
+        })
+        console.log(rows)
     } catch (err) {
         errorHandler(err, res)
+    }
+})
+
+// UPDATE a user
+router.put('/' , async(req, res)=> {
+    try {
+        
+    } catch (err) {
+        
     }
 })
 
