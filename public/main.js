@@ -64,7 +64,7 @@ function populateUsers(data) {
     resultsDisplay.replaceChildren()
     
     // For all users
-    if(data.length > 1) {
+    // if(data.length > 1) {
         data.forEach((user) => {
             const {id, name, fav_breweries, city, state} = user
             
@@ -80,17 +80,17 @@ function populateUsers(data) {
         })
     } 
     // For a single user
-    else {
-        const {id, name, fav_breweries, city, state} = data
+    // else {
+    //     const {id, name, fav_breweries, city, state} = data
         
-        let p = document.createElement('p')
-        p.innerText = `\n${id}. ${name.toUpperCase()} from ${city}, ${state}\nFavorite locations are:`
-        resultsDisplay.appendChild(p)
+    //     let p = document.createElement('p')
+    //     p.innerText = `\n${id}. ${name.toUpperCase()} from ${city}, ${state}\nFavorite locations are:`
+    //     resultsDisplay.appendChild(p)
     
-        fav_breweries.forEach((b) => {
-            let li = document.createElement('li')
-            li.innerText = `${b}`
-            resultsDisplay.appendChild(li)
-        })
-    }
-}
+    //     fav_breweries.forEach((b) => {
+    //         let li = document.createElement('li')
+    //         li.innerText = `${b}`
+    //         resultsDisplay.appendChild(li)
+    //     })
+    // }
+// }
