@@ -9,13 +9,18 @@ const {Pool, Client} = require('pg');
 //     password: process.env.DATABASE_PASSWORD
 // });
 
+// module.exports = {
+//     query: (text,params) => pool.query(text,params)
+// };
+
 // Deployed
-const pool = new Pool ({
-    user: process.env.DATABASE_USER,
-    database: process.env.DATABASE_NAME,
-    password: process.env.DATABASE_PASSWORD
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
-module.exports = {
-    query: (text,params) => pool.query(text,params)
-};
+client.connect();
+
+module.exports = client;
