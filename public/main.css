@@ -50,7 +50,8 @@ a:hover {
 
 .search-container {
     background-color: #dfddcb;
-    height: 600px;
+    min-height: 600px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
 }
