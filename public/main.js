@@ -14,17 +14,11 @@ addUserBtn.addEventListener('click', addUser);
 
 // Return all users in database
 async function getAllUsers(){
-    // Local
-    // try {
-    //     const res = await fetch('http://localhost:3000/users');
-    //     const data = await res.json()
-    //     populateUsers(data)
-    // } catch (err) {
-    //     console.error(err)
-    // }
+        try {
+        // Local
+        // const res = await fetch('http://localhost:3000/users');
 
-    // Deployed
-    try {
+        // Deployed
         const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
         const data = await res.json()
         populateUsers(data)
@@ -37,9 +31,12 @@ async function getAllUsers(){
 async function getOneUser(){
     const userId = document.querySelector('#userId').value
 
-    // Local
     try {
-        const res = await fetch(`http://localhost:3000/users/${userId}`)
+        // Local
+        // const res = await fetch(`http://localhost:3000/users/${userId}`)
+
+        // Deployed
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
         const data = await res.json()
         populateUsers(data)
     } catch (err) {
@@ -64,7 +61,7 @@ function populateUsers(data) {
     resultsDisplay.replaceChildren()
     
     // For all users
-    // if(data.length > 1) {
+    if(data.length > 1) {
         data.forEach((user) => {
             const {id, name, fav_breweries, city, state} = user
             
@@ -80,17 +77,17 @@ function populateUsers(data) {
         })
     } 
     // For a single user
-    // else {
-    //     const {id, name, fav_breweries, city, state} = data
+    else {
+        const {id, name, fav_breweries, city, state} = data
         
-    //     let p = document.createElement('p')
-    //     p.innerText = `\n${id}. ${name.toUpperCase()} from ${city}, ${state}\nFavorite locations are:`
-    //     resultsDisplay.appendChild(p)
+        let p = document.createElement('p')
+        p.innerText = `\n${id}. ${name.toUpperCase()} from ${city}, ${state}\nFavorite locations are:`
+        resultsDisplay.appendChild(p)
     
-    //     fav_breweries.forEach((b) => {
-    //         let li = document.createElement('li')
-    //         li.innerText = `${b}`
-    //         resultsDisplay.appendChild(li)
-    //     })
-    // }
-// }
+        fav_breweries.forEach((b) => {
+            let li = document.createElement('li')
+            li.innerText = `${b}`
+            resultsDisplay.appendChild(li)
+        })
+    }
+}
