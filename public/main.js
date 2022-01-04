@@ -16,10 +16,10 @@ addUserBtn.addEventListener('click', addUser);
 async function getAllUsers(){
         try {
         // Local
-        const res = await fetch('http://localhost:3000/users'); 
+        // const res = await fetch('http://localhost:3000/users'); 
 
         // Deployed
-        // const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
+        const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
         const data = await res.json()
         populateUsers(data)
     } catch (error) {
@@ -33,10 +33,10 @@ async function getOneUser(){
 
     try {
         // Local
-        const res = await fetch(`http://localhost:3000/users/${userId}`)
+        // const res = await fetch(`http://localhost:3000/users/${userId}`)
 
         // Deployed
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
         const data = await res.json()
         populateUsers(data)
     } catch (err) {
