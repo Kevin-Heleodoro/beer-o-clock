@@ -50,6 +50,7 @@ a:hover {
 
 .search-container {
     background-color: #dfddcb;
+    margin-top: auto;
     min-height: 600px;
     height: fit-content;
     display: flex;
@@ -60,8 +61,6 @@ a:hover {
     display: flex;
     flex-direction: column;
 }
-
-
 
 .photo-item {
     display: flex;
@@ -123,7 +122,6 @@ a:hover {
     .header-container {
         padding-left: 100px;
         padding-right: 100px;
-        /* position: fixed; */
     }
 
     .nav > li {
@@ -139,7 +137,6 @@ a:hover {
         width: 50%;
         height: 350px;
         border: 10px solid black ;
-
     }
 
     .photo-item {
