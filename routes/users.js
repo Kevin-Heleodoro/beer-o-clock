@@ -6,30 +6,30 @@ const router = new Router()
 
 module.exports = router
 
-// Local - GET ALL
+// GET ALL
 router.get('/', async(req, res)=>{
     try {
         const {rows} = await db.query('SELECT * FROM users')
         res.send(rows);
-        client.release()
+        // client.release()
     } catch (err) {
-        errorHandler(err)
+        errorHandler(err, res)
     }
 });
 
-// Local - GET a user by id
+// GET a user by id
 router.get('/:id', async(req, res) => {
     try {
         const {id} = req.params;
         const {rows} = await db.query('SELECT * FROM users WHERE id = $1', [id])
         res.send(rows[0])
     } catch (err) {
-        errorHandler(err)
+        errorHandler(err, res)
     }
 })
 
 // Quick error handling function
-function errorHandler(err){
+function errorHandler(err, res){
     console.error(err);
     res.send(`Error ${err}`);
 }

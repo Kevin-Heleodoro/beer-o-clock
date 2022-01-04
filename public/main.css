@@ -50,7 +50,6 @@ a:hover {
 
 .search-container {
     background-color: #dfddcb;
-    margin-top: auto;
     min-height: 600px;
     height: fit-content;
     display: flex;
@@ -91,6 +90,11 @@ a:hover {
 @media only screen and (max-width: 400px) {
     .header-container {
         position: fixed;
+        z-index: 1;
+    }
+
+    .search-container {
+        margin-top: 80px;
     }
 }
 
