@@ -36,7 +36,7 @@ router.post('/', async(req, res)=> {
         res.send({
             message: "New user added."
         })
-        console.log(rows)
+        console.log('User added')
     } catch (err) {
         errorHandler(err, res)
     }

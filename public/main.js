@@ -21,15 +21,14 @@ homeBtn.addEventListener('click', resetPage);
 submitUserBtn.addEventListener('click', addUser);
 updateBrewBtn.addEventListener('click', updateBrews);
 
-
 // Return all users in database
 async function getAllUsers(){
         try {
         // Local
-        const res = await fetch('http://localhost:3000/users'); 
+        // const res = await fetch('http://localhost:3000/users'); 
 
         // Deployed
-        // const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
+        const res = await fetch('https://warm-basin-38859.herokuapp.com/users');
         const data = await res.json()
         populateUsers(data)
     } catch (error) {
@@ -43,10 +42,10 @@ async function getOneUser(){
 
     try {
         // Local
-        const res = await fetch(`http://localhost:3000/users/${userId}`)
+        // const res = await fetch(`http://localhost:3000/users/${userId}`)
 
         // Deployed
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
         const data = await res.json()
 
         populateUsers(data)
@@ -82,8 +81,8 @@ async function addUser(){
     };
 
     try {
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
-        const res = await fetch(`http://localhost:3000/users/` , {
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+        // const res = await fetch(`http://localhost:3000/users/` , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,10 +91,11 @@ async function addUser(){
         })
         // console.log(newUser)
         const data = await res.json();
-
-        
+        if(data){
+            populateUsers(newUser)
+        }
     } catch (err) {
-        alert(`That didn't work`)
+        console.log(err)
     }
 }
 
@@ -109,13 +109,13 @@ async function updateBrews() {
         id: id
     }
     try {
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${id}`);
-        const res = await fetch(`http://localhost:3000/users/${id}`)
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${id}`);
+        // const res = await fetch(`http://localhost:3000/users/${id}`)
         const data = await res.json()
         
         if(data) {
-            // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
-            const res = await fetch(`http://localhost:3000/users/`, {
+            const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+            // const res = await fetch(`http://localhost:3000/users/`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json'
@@ -139,8 +139,8 @@ async function updateBrews() {
 async function deleteUser(){
     let id = document.querySelector('#userId').value
     try {
-        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
-        const res = await fetch(`http://localhost:3000/users/${id}`, {
+        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+        // const res = await fetch(`http://localhost:3000/users/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type' : 'application/json'
@@ -199,6 +199,7 @@ function createUserForm() {
         form.style.display = "flex"
         resultsDisplay.style.display = "none"
         searchBar.style.display = "none"
+        brewSearchForm.style.display = "none"
     }
 }
 
@@ -206,5 +207,6 @@ function resetPage(){
     searchBar.style.display = "flex"
     resultsDisplay.style.display = "flex"
     form.style.display = "none"
+    brewSearchForm.style.display = "none"
     resultsDisplay.replaceChildren()
 }
