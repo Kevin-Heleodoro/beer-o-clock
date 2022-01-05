@@ -5,6 +5,7 @@ const addUserBtn = document.querySelector('#add-user');
 const homeBtn = document.querySelector('#home-btn');
 const submitUserBtn = document.querySelector('#submit-user-btn');
 const updateBrewBtn = document.querySelector('#update-brews-btn');
+const deleteBtn = document.querySelector('.delete-btn');
 
 // Sections
 const resultsDisplay = document.querySelector('.search-results-display')
@@ -19,6 +20,7 @@ addUserBtn.addEventListener('click', createUserForm);
 homeBtn.addEventListener('click', resetPage);
 submitUserBtn.addEventListener('click', addUser);
 updateBrewBtn.addEventListener('click', updateBrews);
+
 
 // Return all users in database
 async function getAllUsers(){
@@ -41,12 +43,21 @@ async function getOneUser(){
 
     try {
         // Local
-        // const res = await fetch(`http://localhost:3000/users/${userId}`)
+        const res = await fetch(`http://localhost:3000/users/${userId}`)
 
         // Deployed
-        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
+        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${userId}`);
         const data = await res.json()
+
         populateUsers(data)
+
+        let btn = document.createElement('button');
+        btn.type = "button"
+        btn.className = "delete-btn"
+        btn.innerText = "Delete user"
+        btn.addEventListener('click', deleteUser);
+        resultsDisplay.appendChild(btn);
+
     } catch (err) {
         let p = document.createElement('p');
         p.innerText = `ID #${userId} does not exist.`
@@ -71,8 +82,8 @@ async function addUser(){
     };
 
     try {
-        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
-        // const res = await fetch(`http://localhost:3000/users/` , {
+        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+        const res = await fetch(`http://localhost:3000/users/` , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +92,8 @@ async function addUser(){
         })
         // console.log(newUser)
         const data = await res.json();
-        console.log(data)
+
+        
     } catch (err) {
         alert(`That didn't work`)
     }
@@ -96,25 +108,21 @@ async function updateBrews() {
     fav_breweries: brewArr,
         id: id
     }
-    // console.log(JSON.stringify(updateObj))
-    // console.log(JSON.stringify(brewArr))
-
     try {
-        // console.log(JSON.stringify(brewArr))
-        const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${id}`);
-
-        // const res = await fetch(`http://localhost:3000/users/${id}`)
+        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/${id}`);
+        const res = await fetch(`http://localhost:3000/users/${id}`)
         const data = await res.json()
         
         if(data) {
-            const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
-            // const res = await fetch(`http://localhost:3000/users/`, {
+            // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+            const res = await fetch(`http://localhost:3000/users/`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(updateObj)
             })
+
             const data = await res.json()
         } 
     } catch (err) {
@@ -124,6 +132,27 @@ async function updateBrews() {
         updateBox.prepend(p)
         updateBox.prepend(br)
         console.error(err)
+    }
+}
+
+//Delete a user
+async function deleteUser(){
+    let id = document.querySelector('#userId').value
+    try {
+        // const res = await fetch(`https://warm-basin-38859.herokuapp.com/users/`, {
+        const res = await fetch(`http://localhost:3000/users/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        })
+        const data = await res.json()
+
+        let p = document.createElement('p')
+        p.innerText = `\nUser #${id} has been deleted ...`
+        resultsDisplay.replaceChildren(p)
+    } catch (err) {
+        console.log(err)
     }
 }
 
@@ -137,7 +166,7 @@ function populateUsers(data) {
             const {id, name, fav_breweries, city, state} = user
             
             let p = document.createElement('p')
-            p.innerText = `\n${id}. ${name.toUpperCase()} from ${city}, ${state}\nFavorite locations are:`
+            p.innerText = `\n${id}. ${name.toUpperCase()} from ${city}, ${state}\nFavorite breweries are:`
             resultsDisplay.appendChild(p)
     
             fav_breweries.forEach((b) => {

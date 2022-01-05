@@ -74,6 +74,8 @@ form > input {
     height: fit-content;
     display: flex;
     flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .search-bar {
@@ -84,6 +86,10 @@ form > input {
 .search-results-display {
     display: flex;
     flex-direction: column ;
+}
+
+.delete-btn {
+    width: auto;
 }
 
 .photo-item {

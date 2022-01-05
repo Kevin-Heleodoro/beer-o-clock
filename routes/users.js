@@ -57,13 +57,14 @@ router.put('/' , async(req, res)=> {
 })
 
 // DELETE a user
-router.delete('/' , async(req, res) => {
+router.delete('/:id' , async(req, res) => {
     try {
-        const {id} = req.body
+        const {id} = req.params
         const {rows} = await db.query('DELETE FROM users WHERE id = $1', [id])
         res.send({
             message: "User deleted."
         })
+        console.log(rows)
     } catch (err) {
         errorHandler(err, res)
     }
